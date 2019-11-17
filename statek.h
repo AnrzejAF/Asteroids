@@ -4,6 +4,9 @@
 #include <cmath>
 
 using namespace sf;
+#define RESX 800 
+#define RESY 600
+
 
 class Statek
 {
@@ -21,21 +24,17 @@ private:
 	float velY;
 	float deg;
 	int HP;
-	ConvexShape shape;
 
-	//int getPosX();
-	//int getPosY();
-	//int getScale();
-	//int getVelX();
-	//int getVelY();
-	//int getRad();
-	//int getHP();
 public:
+	ConvexShape shape;
+	ConvexShape shapeMirrorTop;
+	ConvexShape shapeMirrorDown;
+	ConvexShape shapeMirrorLeft;
+	ConvexShape shapeMirrorRight;
 	Statek(int resX, int resY, float scale, int HP, float velMax);
-	ConvexShape* getShape();
 	void rotate(float deg);
 	void move(float dt);
 	void accelerate(float acceleration, float dt);
-	void WallCollision(int resX, int resY);
+	void WallCollision(float resX, float resY);
 };
 

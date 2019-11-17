@@ -24,21 +24,37 @@ Statek::Statek(int resX, int resY, float scale, int HP, float velMax)
 
 	shape.setRotation(180);
 	shape.setPosition(posX, posY);
-}
+	shapeMirrorTop = shape;
+	shapeMirrorDown = shape;
+	shapeMirrorLeft = shape;
+	shapeMirrorRight = shape;
+	shapeMirrorTop.setRotation(180);
+	shapeMirrorDown.setRotation(180);
+	shapeMirrorLeft.setRotation(180);
+	shapeMirrorRight.setRotation(180);
 
-ConvexShape* Statek::getShape() { return &shape; }
+}
 
 void Statek::rotate(float deg)
 {
 	shape.rotate(deg);
+	shapeMirrorTop.rotate(deg);
+	shapeMirrorDown.rotate(deg);
+	shapeMirrorLeft.rotate(deg);
+	shapeMirrorRight.rotate(deg);
 	this->deg = shape.getRotation();
 }
 
 void Statek::move(float dt)
 {
-	posX += velX*dt;
-	posY += velY*dt;
+	posX += velX * dt;
+	posY += velY * dt;
+
 	shape.setPosition(posX, posY);
+	shapeMirrorTop.setPosition(posX, posY - RESY);
+	shapeMirrorDown.setPosition(posX, posY + RESY);
+	shapeMirrorLeft.setPosition(posX - RESX, posY);
+	shapeMirrorRight.setPosition(posX + RESX, posY);
 }
 
 void Statek::accelerate(float acceleration, float dt)
@@ -51,26 +67,12 @@ void Statek::accelerate(float acceleration, float dt)
 	}
 }
 
-void Statek::WallCollision(int resX, int resY)
+void Statek::WallCollision(float resX, float resY)
 {
-	posX = resX / 2;
-	posY = resY / 2;
+	if (posX < 0.0f)  posX = resX;
+	else if (posX >= resX)	posX = 0;
 
-		if (posX <= 0)
-		{
-			velX = -velX;
-		}
-		if (posX >= resX)
-		{
-			velX = velX;
-		}
-		if (posY <= 0)
-		{
-			velY = -velY;
-		}
-		if (posY >= resY)
-		{
-			velY = -velY;
-		}
-};
+	if (posY < 0.0f)	posY = resY;
+	else if (posY >= resY)	posY = 0;
+}
 
