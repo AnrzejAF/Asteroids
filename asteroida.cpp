@@ -1,19 +1,22 @@
 #include "asteroida.h"
 
-Asteroida::Asteroida(int resX, int resY, float scalep, int HP, float vel)
+Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida *asteroids[], int *points)
 {
-	posX = resX / 4;
-	posY = resY / 4;
+	posX = RESX / 4;
+	posY = RESY / 4;
 	this->scale = scalep * (1 + (rand()%3));
 	this->HP = HP;
 	vel = 0;
-	velX = 0;
-	velY = 0;
+	velX = 10;
+	velY = 10;
 	deg = 0;
-
+	radius = 3.05 * scalep + statek->radius;
+	this->statek = statek;
+	this->asteroids = asteroids;
+	this->points = points;
 
 	shape.setPointCount(8);
-	shape.setPoint(0, Vector2f(scale * 0, scale * (2 + random())));
+	shape.setPoint(0, Vector2f(scale * 0, scale * (3 + random())));
 	shape.setPoint(1, Vector2f(scale * (2 + random()), scale * (2 + random())));
 	shape.setPoint(2, Vector2f(scale * (3 + random()), scale * 0));
 	shape.setPoint(3, Vector2f(scale * (2 + random()), scale * (-2 + random())));
@@ -40,4 +43,38 @@ Asteroida::Asteroida(int resX, int resY, float scalep, int HP, float vel)
 		else
 			return -0.1 * (rand() % 6);
 	}
-	;
+
+
+	void Asteroida::move(float dt)
+	{
+		posX += velX * dt;
+		posY += velY * dt;
+		shape.setPosition(posX, posY);
+	}
+
+	void Asteroida::collision()
+	{
+		if (sqrt(pow((posX - statek->posX), 2) + pow((posY - statek->posY), 2)) <= radius)
+		{
+			*points += 1;
+			destroy();
+			return;
+		}
+
+		if (posY > RESY || posY < 0 || posX > RESX || posX < 0)
+			destroy();
+			
+	}
+
+	void Asteroida::destroy()
+	{
+		for (int i = 0; i < MAX_N; i++)
+		{
+			if (asteroids[i] == this)
+			{
+				asteroids[i] = NULL;
+				break;
+			}
+		}
+		this->~Asteroida();
+	}

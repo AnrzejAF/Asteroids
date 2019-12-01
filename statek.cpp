@@ -13,12 +13,13 @@ Statek::Statek(int resX, int resY, float scale, int HP, float velMax)
 	velX = 0;
 	velY = 0;
 	deg = 180;
+	radius = 4 * scale;
 
 	shape.setPointCount(4);
-	shape.setPoint(0, Vector2f(scale * -3.f, scale * -4.f));
+	shape.setPoint(0, Vector2f(scale * -3.f, scale * -2.66f));
 	shape.setPoint(1, Vector2f(0.f, scale * 4.f));
-	shape.setPoint(2, Vector2f(scale * 3.f, scale * -4.f));
-	shape.setPoint(3, Vector2f(0.f, scale * -2.f));
+	shape.setPoint(2, Vector2f(scale * 3.f, scale * -2.66f));
+	shape.setPoint(3, Vector2f(0.f, scale * -1.5f));
 	sizeX = 6 * scale;
 	sizeY = 8 * scale;
 

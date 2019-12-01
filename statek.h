@@ -1,20 +1,15 @@
 #pragma once
+#include "options.h"
 #include <SFML/Graphics.hpp>
-#define PI 3.14159265358979323846
 #include <cmath>
 
 using namespace sf;
-#define RESX 800 
-#define RESY 600
+
 
 
 class Statek
 {
 private:
-
-
-	float posX;
-	float posY;
 	float scale;
 	float sizeX;
 	float sizeY;
@@ -26,6 +21,9 @@ private:
 	int HP;
 
 public:
+	float posX;
+	float posY;
+	float radius;
 	ConvexShape shape;
 	ConvexShape shapeMirrorTop;
 	ConvexShape shapeMirrorDown;
