@@ -1,6 +1,9 @@
 #pragma once
+#include "options.h"
 #include <SFML/Graphics.hpp>
 #include <ctime>
+#include "statek.h"
+
 
 using namespace sf;
 
@@ -17,12 +20,19 @@ private:
 	float velY;
 	float deg;
 	float HP;
+	float radius;
 	ConvexShape shape;
+	Statek* statek;
+	Asteroida** asteroids;
+	int* points;
 
 public:
-	Asteroida(int resX, int resY, float scale, int HP, float vel);
+	Asteroida(float scale, int HP, float vel, Statek *statek, Asteroida *asteroids[], int *points);
 	ConvexShape* getShape();
 	void rotate(float deg, float dt);
 	float random();
+	void move(float dt);
+	void collision();
+	void destroy();
 };
 
