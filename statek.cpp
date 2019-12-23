@@ -1,6 +1,7 @@
 #include "statek.h"
 
 using namespace sf;
+using namespace std;
 
 Statek::Statek(int resX, int resY, float scale, int HP, float velMax)
 {

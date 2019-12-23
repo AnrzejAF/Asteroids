@@ -1,5 +1,7 @@
 #include "asteroida.h"
 
+using namespace std;
+
 Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida *asteroids[], int *points)
 {
 	posX = RESX / 4;

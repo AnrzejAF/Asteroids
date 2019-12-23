@@ -4,6 +4,7 @@
 #include <cmath>
 
 using namespace sf;
+using namespace std;
 
 
 
