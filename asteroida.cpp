@@ -4,13 +4,13 @@ using namespace std;
 
 Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida *asteroids[], int *points)
 {
-	posX = RESX / 4;
-	posY = RESY / 4;
+	posX = rand() % RESX;
+	posY = rand() % RESY;
 	this->scale = scalep * (1 + (rand()%3));
 	this->HP = HP;
 	vel = 0;
-	velX = 10;
-	velY = 10;
+	velX = (rand() % 51) - 25;
+	velY = (rand() % 51) - 25;
 	deg = 0;
 	radius = 3.05 * scalep + statek->radius;
 	this->statek = statek;
@@ -27,7 +27,7 @@ Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida 
 	shape.setPoint(6, Vector2f(scale * (-3 + random()), scale * 0));
 	shape.setPoint(7, Vector2f(scale * (-2 + random()), scale * (2 + random())));
 
-	shape.setPosition(posX, posY);
+	shape.setPosition( posX, posY);
 
 }
 
@@ -51,7 +51,7 @@ Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida 
 	{
 		posX += velX * dt;
 		posY += velY * dt;
-		shape.setPosition(posX, posY);
+		shape.setPosition(  posX, posY);
 	}
 
 	void Asteroida::collision()
