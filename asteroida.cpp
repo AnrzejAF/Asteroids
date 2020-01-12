@@ -16,6 +16,7 @@ Asteroida::Asteroida(float scalep, int HP, float vel, Statek* statek, Asteroida 
 	this->statek = statek;
 	this->asteroids = asteroids;
 	this->points = points;
+	
 
 	shape.setPointCount(8);
 	shape.setPoint(0, Vector2f(scale * 0, scale * (3 + random())));

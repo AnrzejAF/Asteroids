@@ -2,6 +2,7 @@
 #include "statek.h"
 #include "asteroida.h"
 #include "menu.h"
+#include "help.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
@@ -33,7 +34,9 @@ int main()
 	window.setFramerateLimit(60);
 	Event event;
 	Menu menu(window.getSize().x, window.getSize().y);
+	Help help(window.getSize().x, window.getSize().y);
 	bool menu_flag = 1;
+	bool help_flag = 0;
 	while (window.isOpen())
 	{
 		if (menu_flag)
@@ -46,37 +49,54 @@ int main()
 					switch (event.key.code)
 					{
 					case sf::Keyboard::Up:
-						menu.MoveUp();
+						if(!help_flag)
+							menu.MoveUp();
 						break;
 
 					case sf::Keyboard::Down:
-						menu.MoveDown();
+						if (!help_flag)
+							menu.MoveDown();
+						break;
+
+					case sf::Keyboard::Escape:
+						help_flag = 0;
 						break;
 
 					case sf::Keyboard::Return:
-						switch (menu.GetPressedItem())
-						{
-						case 0:
-							std::cout << "Resume button has been pressed" << std::endl;
-							menu_flag = 0;
-							clock.restart().asSeconds();
-							break;
-						case 1:
-							std::cout << "New Game button has been pressed" << std::endl;
-							break;
-						case 2:
-							std::cout << "Option button has been pressed" << std::endl;
-							break;
-						case 3:
-							std::cout << "Help button has been pressed" << std::endl;
-							break;
-						case 4:
-							window.close();
-							break;
-						}
+						if (!help_flag)
+							switch (menu.GetPressedItem())
+							{
+							case 0:
+								std::cout << "Resume button has been pressed" << std::endl;
+								menu_flag = 0;
+								clock.restart().asSeconds();
+								break;
+
+							case 1:
+								std::cout << "New Game button has been pressed" << std::endl;
+								menu_flag = 0;
+								srand(time(0));
+								menu.NewGame(&points, &dt, &next_asteroid, &statek, asteroids);
+							
+								break;
+							case 2:
+								std::cout << "Option button has been pressed" << std::endl;
+								break;
+							case 3:
+								std::cout << "Help button has been pressed" << std::endl;
+								help_flag = 1;
+								break;
+							case 4:
+								window.close();
+								break;
+							}
 
 						break;
 					}
+
+
+
+
 
 					break;
 				case sf::Event::Closed:
@@ -88,8 +108,10 @@ int main()
 			}
 
 			window.clear();
-
-			menu.draw(window);
+			if (help_flag)
+				help.draw(window);
+			else
+				menu.draw(window);
 
 			window.display();
 		}
@@ -164,7 +186,11 @@ int main()
 			{
 				menu_flag = 1;
 			}
-
+			if (Keyboard::isKeyPressed(Keyboard::F1))
+			{
+				menu_flag = 1;
+				help_flag = 1;
+			}
 			window.display();
 			dt = clock.restart().asSeconds();
 		}

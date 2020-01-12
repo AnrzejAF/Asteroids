@@ -1,6 +1,4 @@
 #include "Menu.h"
-#include "statek.h"
-#include "asteroida.h"
 
 Menu::Menu(float width, float height)
 {
@@ -13,7 +11,6 @@ Menu::Menu(float width, float height)
 	menu[0].setFillColor(sf::Color::Red);
 	menu[0].setString("Resume");
 	menu[0].setPosition(sf::Vector2f(width / 2.55 , height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
-
 
 	menu[1].setFont(font);
 	menu[1].setFillColor(sf::Color::White);
@@ -39,9 +36,6 @@ Menu::Menu(float width, float height)
 }
 
 
-Menu::~Menu()
-{
-}
 
 void Menu::draw(sf::RenderWindow& window)
 {
@@ -71,12 +65,21 @@ void Menu::MoveDown()
 	}
 }
 
-void NewGame(int* points, float* dt, float* next_asteroid, Statek* statek, Asteroida* asteroids)
+
+void Menu::NewGame(int* points, float* dt, float* next_asteroid, Statek* statek, Asteroida** asteroids)
 {
 	*points = 0;
 	*dt = 0;
 	*next_asteroid = 0;
-	statek-> 
+	statek->posX = RESX / 2;
+	statek->posY = RESY / 2;
+	for (int i = 0; i < MAX_N; i++)
+	{
+		if (asteroids[i] != NULL)
+		{
+			asteroids[i]->destroy();
+		}
+	}
 }
 
 #include "SFML/Graphics.hpp"
