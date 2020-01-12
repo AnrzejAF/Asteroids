@@ -10,7 +10,7 @@ Statek::Statek(int resX, int resY, float scale, int HP, float velMax)
 	this->scale = scale;
 	this->HP = HP;
 	this->velMax = velMax;
-	vel = 0;
+	vel = 5;
 	velX = 0;
 	velY = 0;
 	deg = 180;
@@ -61,11 +61,11 @@ void Statek::move(float dt)
 
 void Statek::accelerate(float acceleration, float dt)
 {
-	float newVel = vel + acceleration * dt;
+	float newVel = vel + ( acceleration * dt);
 	if (newVel < velMax)
 	{
-		velX = velX - sin(PI / 180 * deg);
-		velY = velY + cos(PI / 180 * deg);
+		velX = velX - 5 * sin(PI / 180 * deg);
+		velY = velY + 5 * cos(PI / 180 * deg);
 	}
 }
 
