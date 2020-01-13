@@ -10,27 +10,32 @@ Menu::Menu(float width, float height)
 	menu[0].setFont(font);
 	menu[0].setFillColor(sf::Color::Red);
 	menu[0].setString("Resume");
-	menu[0].setPosition(sf::Vector2f(width / 2.55 , height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
+	menu[0].setOrigin(menu[0].getLocalBounds().width / 2, menu[0].getLocalBounds().height / 2);
+	menu[0].setPosition(sf::Vector2f(width / 2 , height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
 
 	menu[1].setFont(font);
 	menu[1].setFillColor(sf::Color::White);
 	menu[1].setString("New Game");
-	menu[1].setPosition(sf::Vector2f(width / 2.7, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
+	menu[1].setOrigin(menu[1].getLocalBounds().width / 2, menu[1].getLocalBounds().height / 2);
+	menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
 
 	menu[2].setFont(font);
 	menu[2].setFillColor(sf::Color::White);
 	menu[2].setString("Options");
-	menu[2].setPosition(sf::Vector2f(width / 2.5 , height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
+	menu[2].setOrigin(menu[2].getLocalBounds().width / 2, menu[2].getLocalBounds().height / 2);
+	menu[2].setPosition(sf::Vector2f(width / 2 , height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
 
 	menu[3].setFont(font);
 	menu[3].setFillColor(sf::Color::White);
 	menu[3].setString("Help");
-	menu[3].setPosition(sf::Vector2f(width / 2.3, height / (MAX_NUMBER_OF_ITEMS + 1) * 4));
+	menu[3].setOrigin(menu[3].getLocalBounds().width / 2, menu[3].getLocalBounds().height / 2);
+	menu[3].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 4));
 
 	menu[4].setFont(font);
 	menu[4].setFillColor(sf::Color::White);
 	menu[4].setString("Exit");
-	menu[4].setPosition(sf::Vector2f(width / 2.25, height / (MAX_NUMBER_OF_ITEMS + 1) * 5));
+	menu[4].setOrigin(menu[4].getLocalBounds().width / 2, menu[4].getLocalBounds().height / 2);
+	menu[4].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 5));
 
 	selectedItemIndex = 0;
 }
@@ -82,72 +87,3 @@ void Menu::NewGame(int* points, float* dt, float* next_asteroid, Statek* statek,
 	}
 }
 
-#include "SFML/Graphics.hpp"
-#include <iostream>
-
-
-//int main()
-//{
-//	sf::RenderWindow window(sf::VideoMode(600, 600), "Asteroids");
-//
-//	Menu menu(window.getSize().x, window.getSize().y);
-//
-//	while (window.isOpen())
-//	{
-//		sf::Event event;
-//
-//		while (window.pollEvent(event))
-//		{
-//			switch (event.type)
-//			{
-//			case sf::Event::KeyReleased:
-//				switch (event.key.code)
-//				{
-//				case sf::Keyboard::Up:
-//					menu.MoveUp();
-//					break;
-//
-//				case sf::Keyboard::Down:
-//					menu.MoveDown();
-//					break;
-//
-//				case sf::Keyboard::Return:
-//					switch (menu.GetPressedItem())
-//					{
-//					case 0:
-//						std::cout << "Resume button has been pressed" << std::endl;
-//
-//						break;
-//					case 1:
-//						std::cout << "New Game button has been pressed" << std::endl;
-//						break;
-//					case 2:
-//						std::cout << "Option button has been pressed" << std::endl;
-//						break;
-//					case 3:
-//						std::cout << "Help button has been pressed" << std::endl;
-//						break;
-//					case 4:
-//						window.close();
-//						break;
-//					}
-//
-//					break;
-//				}
-//
-//				break;
-//			case sf::Event::Closed:
-//				window.close();
-//
-//				break;
-//
-//			}
-//		}
-//
-//		window.clear();
-//
-//		menu.draw(window);
-//
-//		window.display();
-//	}
-//}
