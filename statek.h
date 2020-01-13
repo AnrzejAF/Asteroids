@@ -16,12 +16,12 @@ private:
 	float sizeY;
 	float velMax;
 	float vel;
+	int HP;
+
+public:	
 	float velX;
 	float velY;
 	float deg;
-	int HP;
-
-public:
 	float posX;
 	float posY;
 	float radius;
@@ -30,7 +30,7 @@ public:
 	ConvexShape shapeMirrorDown;
 	ConvexShape shapeMirrorLeft;
 	ConvexShape shapeMirrorRight;
-	Statek(int resX, int resY, float scale, int HP, float velMax);
+	Statek(int resX, int resY, float scale, int HP, float velMax, float posX, float posY);
 	void rotate(float deg);
 	void move(float dt);
 	void accelerate(float acceleration, float dt);

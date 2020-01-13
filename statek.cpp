@@ -3,14 +3,14 @@
 using namespace sf;
 using namespace std;
 
-Statek::Statek(int resX, int resY, float scale, int HP, float velMax)
+Statek::Statek(int resX, int resY, float scale, int HP, float velMax, float posX, float posY)
 {
 	posX = resX / 2;
 	posY = resY / 2;
 	this->scale = scale;
 	this->HP = HP;
 	this->velMax = velMax;
-	vel = 5;
+	vel = 0;
 	velX = 0;
 	velY = 0;
 	deg = 180;
@@ -62,10 +62,9 @@ void Statek::move(float dt)
 void Statek::accelerate(float acceleration, float dt)
 {
 	float newVel = vel + ( acceleration * dt);
-	if (newVel < velMax)
 	{
-		velX = velX - 5 * sin(PI / 180 * deg);
-		velY = velY + 5 * cos(PI / 180 * deg);
+		velX +=  newVel * sin(PI / 180 * -deg);
+		velY += newVel * cos(PI / 180 * -deg);
 	}
 }
 

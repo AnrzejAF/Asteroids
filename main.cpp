@@ -13,6 +13,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 
 using namespace sf;
@@ -29,7 +30,7 @@ int main()
 	float next_asteroid = 0;
 	Asteroida* asteroids[MAX_N] = { NULL };
 
-	Statek statek(RESX, RESY, 5, 1, 100);
+	Statek statek(RESX, RESY, 5, 1, 100, RESX/2, RESY/2);
 	ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	RenderWindow window(VideoMode(RESX, RESY), "Gierka", Style::Default, settings);
@@ -55,6 +56,11 @@ int main()
 			menu.draw(window);
 			while (window.pollEvent(event))
 			{
+				if (event.type == Event::Closed)
+				{
+					menu_flag = 0; 
+					exit_flag = 1;
+				}
 				switch (event.type)
 				{
 				case sf::Event::KeyReleased:
@@ -101,7 +107,6 @@ int main()
 						case 4:
 							menu_flag = 0;
 							exit_flag = 1;
-							//window.close();
 							break;
 						}
 
@@ -111,6 +116,7 @@ int main()
 
 				}
 			}
+			
 		}
 		else if (help_flag)
 		{
@@ -179,6 +185,7 @@ int main()
 		}
 		else if (game_flag)
 		{
+
 			while (window.pollEvent(event))
 			{
 				if (event.type == Event::Closed)
@@ -267,12 +274,12 @@ int main()
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Up))
 			{
-				statek.accelerate(0.05, dt);
+				statek.accelerate(300, dt);
 			}
-			/*if (Keyboard::isKeyPressed(Keyboard::Down))
+			if (Keyboard::isKeyPressed(Keyboard::Down))
 			{
-				statek.accelerate(-0.005, dt);
-			}*/
+				statek.accelerate(-200, dt);
+			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
@@ -285,12 +292,21 @@ int main()
 				help_flag = 1;
 			}
 
-
+			sf::Text pointsText;
+			sf::Font font;
+			font.loadFromFile("arial.ttf");
+			pointsText.setFont(font);
+			pointsText.setFillColor(sf::Color::White);
+			pointsText.setString("Punkty: " + to_string(points));
+			pointsText.setOrigin(0, 0);
+			pointsText.setPosition(sf::Vector2f(5, 5));
+			window.draw(pointsText);
 		}
 
 		dt = clock.restart().asSeconds();
 	
 	window.display();
+	
 }
 return 0;
 }
